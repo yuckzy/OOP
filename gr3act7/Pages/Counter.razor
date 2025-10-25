@@ -1,0 +1,255 @@
+﻿@page "/counter"
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsLoggedIn)
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+}
+
+@if (!Auth.IsLoggedIn)
+{
+    <p>Redirecting to login...</p>
+}
+else
+{
+    <PageTitle>Counter</PageTitle>
+
+
+    @using gr3act7
+    @using Microsoft.AspNetCore.Components.Web
+    @using Microsoft.AspNetCore.Components
+
+
+
+    <h1>Counter</h1>
+
+    <p role="status">Current count: @currentCount</p>
+
+    <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+    <div class="m-4"> 
+        <input type = "text"
+            @onfocus="HandleFocus"
+            @onblur="HandleBlur"
+            @onkeydown="HandleKeyDown"
+            @oninput="HandleInput" />
+        
+        <p>@textInput</p>
+        <p>@textFocus</p>
+        <p>@textKey</p>
+    </div>
+
+    <div style="border: 1px solid black;" @onmouseover="MouseOver">
+        <p>@divText</p>
+    </div>
+
+    <h3 class="mt-4">Add New Student</h3>
+    <div class="mb-3">
+        <input class="form-control mb-1" placeholder="ID" type="number" @bind="newStudent.ID" />
+        <input class="form-control mb-1" placeholder="Name" @bind="newStudent.Name" />
+        @if (!string.IsNullOrEmpty(nameError))
+        {
+            <div class="text-danger">@nameError</div>
+        }
+        <input class="form-control mb-1" placeholder="Age" type="number" @bind="newStudent.Age" />
+        @if (!string.IsNullOrEmpty(ageError))
+        {
+            <div class="text-danger">@ageError</div>
+        }
+        <input class="form-control mb-1" placeholder="Birthday (yyyy-MM-dd)" type="date" @bind="newStudent.Birthday" />
+        <button class="btn btn-success" @onclick="AddStudent">Add Student</button>
+    </div>
+
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Birthday</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var student in students)
+            {
+                bool isEditing = editStudent != null && editStudent.ID == student.ID;
+                <tr>
+                    <td>@student.ID</td>
+                    <td>
+                        @if (isEditing)
+                        {
+                            <input class="form-control" @bind="editStudent.Name" />
+                        }
+                        else
+                        {
+                            @student.Name
+                        }
+                    </td>
+                    <td>
+                        @if (isEditing)
+                        {
+                            <input class="form-control" type="number" @bind="editStudent.Age" />
+                        }
+                        else
+                        {
+                            @student.Age
+                        }
+                    </td>
+                    <td>
+                        @if (isEditing)
+                        {
+                            <input class="form-control" type="date" @bind="editStudent.Birthday" />
+                        }
+                        else
+                        {
+                            @student.Birthday.ToShortDateString()
+                        }
+                    </td>
+                    <td>
+                        @if (isEditing)
+                        {
+                            <button class="btn btn-sm btn-primary me-1" @onclick="() => SaveEdit(student.ID)">Save</button>
+                            <button class="btn btn-sm btn-secondary me-1" @onclick="CancelEdit">Cancel</button>
+                            <button class="btn btn-sm btn-danger" @onclick="() => DeleteStudent(student.ID)">Delete</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-sm btn-warning me-1" @onclick="() => EditStudent(student)">Edit</button>
+                            <button class="btn btn-sm btn-danger" @onclick="() => DeleteStudent(student.ID)">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    @code {
+        void DeleteStudent(int id)
+        {
+            var s = students.FirstOrDefault(x => x.ID == id);
+            if (s != null)
+            {
+                students.Remove(s);
+            }
+            if (editStudent != null && editStudent.ID == id)
+            {
+                editStudent = null;
+            }
+        }
+        Student newStudent = new Student { Birthday = DateTime.Today };
+        Student? editStudent = null;
+        void EditStudent(Student student)
+        {
+            // Create a copy to avoid editing the list directly
+            editStudent = new Student
+            {
+                ID = student.ID,
+                Name = student.Name,
+                Age = student.Age,
+                Birthday = student.Birthday
+            };
+        }
+
+        void SaveEdit(int id)
+        {
+            var s = students.FirstOrDefault(x => x.ID == id);
+            if (s != null && editStudent != null)
+            {
+                s.Name = editStudent.Name;
+                s.Age = editStudent.Age;
+                s.Birthday = editStudent.Birthday;
+            }
+            editStudent = null;
+        }
+
+        void CancelEdit()
+        {
+            editStudent = null;
+        }
+        private int currentCount = 0;
+        string textInput = "";
+        string textFocus = "";
+        string textKey = "";
+        string divText = "";
+        string text = "";
+
+        List<Student> students = new List<Student>
+        {
+            new Student { ID = 1, Name = "Dwyane", Age = 19, Birthday = new DateTime(2006, 2, 4) },
+            new Student { ID = 2, Name = "Chang", Age = 20, Birthday = new DateTime(2003, 8, 15) },
+            new Student { ID = 3, Name = "Karl", Age = 20, Birthday = new DateTime(2006, 2, 20) },
+            new Student { ID = 4, Name = "Gwen", Age = 19, Birthday = new DateTime(2006, 12, 30) },
+            new Student { ID = 5, Name = "Angela", Age = 19, Birthday = new DateTime(2006, 2, 4) },
+        };
+
+        string nameError = "";
+        string ageError = "";
+
+        void AddStudent()
+        {
+            nameError = "";
+            ageError = "";
+
+            bool valid = true;
+
+            if (string.IsNullOrWhiteSpace(newStudent.Name))
+            {
+                nameError = "The Name field is required.";
+                valid = false;
+            }
+            if (newStudent.Age < 18 || newStudent.Age > 26)
+            {
+                ageError = "The field Age must be between 18 and 26.";
+                valid = false;
+            }
+            if (newStudent.ID == 0 || students.Any(s => s.ID == newStudent.ID))
+            {
+                valid = false;
+            }
+
+            if (!valid)
+                return;
+
+            students.Add(new Student
+            {
+                ID = newStudent.ID,
+                Name = newStudent.Name,
+                Age = newStudent.Age,
+                Birthday = newStudent.Birthday
+            });
+            newStudent = new Student { Birthday = DateTime.Today };
+        }
+
+        private void IncrementCount()
+        {
+            currentCount++;
+        }
+
+        private void HandleInput(ChangeEventArgs e)
+        {
+            textInput = (string)e.Value!;
+        }
+        private void MouseOver(MouseEventArgs e)
+        {
+            divText = "You are hovering on this div";
+        }
+        private void HandleKeyDown(KeyboardEventArgs e)
+        {
+            textKey = e.Key;
+        }
+        private void HandleFocus(FocusEventArgs e)
+        {
+            textFocus = "You are typing....";
+        }
+        private void HandleBlur(FocusEventArgs e)
+        {
+            textFocus = "You are not typing. YOU HAVE CLICKED AWAY?!?!";
+        }
+    }
+}

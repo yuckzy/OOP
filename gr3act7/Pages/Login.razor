@@ -1,0 +1,46 @@
+@page "/login"
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+<h3>Login</h3>
+<div class="mb-3">
+    <input class="form-control mb-1" placeholder="Username" @bind="username" />
+    <input class="form-control mb-1" placeholder="Password" type="password" @bind="password" />
+    @if (!string.IsNullOrEmpty(error))
+    {
+        <div class="text-danger">@error</div>
+    }
+    <button class="btn btn-primary" @onclick="LoginUser">Login</button>
+</div>
+<p>
+    Don't have an account? <a href="/signup">Sign Up</a>
+</p>
+
+@code {
+    string username = "";
+    string password = "";
+    string error = "";
+
+    void LoginUser()
+    {
+        if (Auth.Login(username, password))
+        {
+            Nav.NavigateTo("/");
+        }
+        else
+        {
+            error = "Invalid username or password.";
+        }
+    }
+}
+
+<li class="nav-item px-3">
+    <NavLink class="nav-link" href="login">
+        <span class="oi oi-account-login" aria-hidden="true"></span> Login
+    </NavLink>
+</li>
+<li class="nav-item px-3">
+    <NavLink class="nav-link" href="signup">
+        <span class="oi oi-plus" aria-hidden="true"></span> Sign Up
+    </NavLink>
+</li>

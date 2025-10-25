@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsLoggedIn)
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+}
+
+@if (!Auth.IsLoggedIn)
+{
+    <p>Redirecting to login...</p>
+}
+else
+{
+    <!-- Your Home page content goes here -->
+}

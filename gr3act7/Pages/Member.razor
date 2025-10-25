@@ -1,0 +1,42 @@
+@page "/member"
+@inject AuthService Auth
+@inject NavigationManager Nav
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (!Auth.IsLoggedIn)
+        {
+            Nav.NavigateTo("/login", true);
+        }
+    }
+}
+
+@if (!Auth.IsLoggedIn)
+{
+    <p>Redirecting to login...</p>
+}
+else
+{
+    <!-- Your page content goes here -->
+}
+
+<style>
+    img {
+        width: 150px;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 100%;
+    }
+    table {
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: center;
+    }
+    th {
+        background-color: #f2f2f2;
+    }       
+</style>

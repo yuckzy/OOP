@@ -1,0 +1,1 @@
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
