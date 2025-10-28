@@ -37,7 +37,6 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         position: relative;
         overflow: hidden;
     }
@@ -58,37 +57,37 @@
     .brand-content {
         position: relative;
         z-index: 1;
-        text-align: center;
-        width: 100%;
-    }
-
-    .brand-logo {
-        font-size: 24px;
-        font-weight: bold;
-        margin-bottom: 30px;
-        background: rgba(255, 255, 255, 0.15);
-        padding: 12px 20px;
-        border-radius: 8px;
-        display: inline-block;
-        backdrop-filter: blur(10px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        height: 100%;
     }
 
     .brand-title {
-        font-size: 32px;
+        font-size: 42px;
         font-weight: 800;
-        line-height: 1.2;
-        margin-bottom: 15px;
-        letter-spacing: 0.3px;
+        line-height: 1.1;
+        margin-bottom: 20px;
+        letter-spacing: 0.5px;
     }
 
     .brand-subtitle {
-        font-size: 18px;
+        font-size: 20px;
         opacity: 0.95;
-        margin-top: 20px;
         font-weight: 600;
         letter-spacing: 0.8px;
         color: #a8d8ff;
+        margin-bottom: 30px;
+    }
+
+    .brand-tagline {
+        font-size: 16px;
+        opacity: 0.8;
+        font-style: italic;
+        line-height: 1.5;
+        border-left: 3px solid #a8d8ff;
+        padding-left: 15px;
+        margin-top: 30px;
     }
 
     .form-section {
@@ -332,6 +331,7 @@
         .brand-section {
             padding: 30px 20px;
             min-height: 200px;
+            text-align: center;
         }
         
         .form-section {
@@ -343,18 +343,12 @@
             gap: 12px;
         }
 
-        .brand-logo {
-            font-size: 20px;
-            margin-bottom: 20px;
-            padding: 10px 15px;
-        }
-
         .brand-title {
-            font-size: 24px;
+            font-size: 32px;
         }
 
         .brand-subtitle {
-            font-size: 16px;
+            font-size: 18px;
         }
 
         .form-title {
@@ -376,7 +370,7 @@
         }
 
         .brand-title {
-            font-size: 20px;
+            font-size: 28px;
         }
 
         .form-title {
@@ -397,12 +391,14 @@
         <div class="water-drop water-drop-2"></div>
         <div class="water-drop water-drop-3"></div>
         <div class="brand-content">
-            <div class="brand-logo">Logo</div>
             <div class="brand-title">
                 Water Station<br />
                 Online Appointment
             </div>
-            <div class="brand-subtitle">DRINK YOUR WATER BITCH!</div>
+            <div class="brand-subtitle">Pure Water, Pure Life</div>
+            <div class="brand-tagline">
+                Your trusted partner for clean, refreshing water delivered right to your doorstep
+            </div>
         </div>
     </div>
 
