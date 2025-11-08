@@ -1,9 +1,3 @@
-/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.GeneratedMSBuildEditorConfig.editorconfig
-/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.AssemblyInfoInputs.cache
-/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.AssemblyInfo.cs
-/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.csproj.CoreCompileInputs.cache
-/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.MvcApplicationPartsAssemblyInfo.cache
-/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.sourcelink.json
 /workspaces/OOP/Customer/bin/Debug/net8.0/appsettings.Development.json
 /workspaces/OOP/Customer/bin/Debug/net8.0/appsettings.json
 /workspaces/OOP/Customer/bin/Debug/net8.0/Customer.staticwebassets.runtime.json
@@ -12,6 +6,12 @@
 /workspaces/OOP/Customer/bin/Debug/net8.0/Customer.runtimeconfig.json
 /workspaces/OOP/Customer/bin/Debug/net8.0/Customer.dll
 /workspaces/OOP/Customer/bin/Debug/net8.0/Customer.pdb
+/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.GeneratedMSBuildEditorConfig.editorconfig
+/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.AssemblyInfoInputs.cache
+/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.AssemblyInfo.cs
+/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.csproj.CoreCompileInputs.cache
+/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.MvcApplicationPartsAssemblyInfo.cache
+/workspaces/OOP/Customer/obj/Debug/net8.0/Customer.sourcelink.json
 /workspaces/OOP/Customer/obj/Debug/net8.0/staticwebassets.build.json
 /workspaces/OOP/Customer/obj/Debug/net8.0/staticwebassets.development.json
 /workspaces/OOP/Customer/obj/Debug/net8.0/staticwebassets/msbuild.Customer.Microsoft.AspNetCore.StaticWebAssets.props

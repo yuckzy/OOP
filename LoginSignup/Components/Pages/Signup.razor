@@ -436,9 +436,32 @@
                 </div>
             </div>
 
-            <div class="form-group full-width">
-                <label class="form-label">Address</label>
-                <textarea class="form-textarea" @bind="Address" placeholder="House no. / Street name / Brgy name / City"></textarea>
+            <!-- Address split: House/Street | Brgy (editable dropdown) | City (editable dropdown) -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label class="form-label">House no. / Street Name</label>
+                    <input class="form-input" type="text" @bind="StreetAddress" placeholder="House no. / Street name" />
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Brgy</label>
+                    <!-- editable dropdown: user can type other barangays -->
+                    <input class="form-input" list="brgyList" @bind="Barangay" placeholder="Select or type barangay" />
+                    <datalist id="brgyList">
+                        <option value="San Roque"></option>
+                        <option value="Daanghari"></option>
+                        <option value="Tangos"></option>
+                    </datalist>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">City</label>
+                    <!-- editable dropdown: default Navotas City but user can type another -->
+                    <input class="form-input" list="cityList" @bind="City" placeholder="Select or type city" />
+                    <datalist id="cityList">
+                        <option value="Navotas City"></option>
+                    </datalist>
+                </div>
             </div>
 
             <!-- Row 4: Password and Confirm Password -->
@@ -450,6 +473,19 @@
                 <div class="form-group">
                     <label class="form-label">Confirm password</label>
                     <input class="form-input" type="password" @bind="ConfirmPassword" placeholder="Confirm password" />
+                </div>
+            </div>
+
+            <!-- Row 5: Role Selection (Admin/Customer) -->
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label class="form-label">Role</label>
+                    <select class="form-input" @bind="Role">
+                        @foreach (var role in RoleOptions)
+                        {
+                            <option value="@role">@role</option>
+                        }
+                    </select>
                 </div>
             </div>
 
@@ -476,11 +512,15 @@
     private string Username { get; set; } = "";
     private string Email { get; set; } = "";
     private string ContactNumber { get; set; } = "";
-    private string Address { get; set; } = "";
+    private string StreetAddress { get; set; } = "";
+    private string Barangay { get; set; } = "San Roque";
+    private string City { get; set; } = "Navotas City";
+    private string Role { get; set; } = "Customer";
+    private readonly string[] RoleOptions = new[] { "Customer", "Admin" };
     private string Password { get; set; } = "";
     private string ConfirmPassword { get; set; } = "";
     private bool AgreeTerms { get; set; } = false;
-
+ 
     private void HandleSignup()
     {
         if (!AgreeTerms)
@@ -489,19 +529,19 @@
             Console.WriteLine("Please agree to the Terms and Conditions");
             return;
         }
-
+ 
         if (Password != ConfirmPassword)
         {
             // Show error - passwords don't match
             Console.WriteLine("Passwords do not match");
             return;
         }
-
+ 
         // TODO: Implement signup logic
-        Console.WriteLine($"Signup attempt: {FullName}, {Username}");
+        Console.WriteLine($"Signup attempt: {FullName}, {Username}, role={Role}, {StreetAddress}, {Barangay}, {City}");
         // Navigation.NavigateTo("/login");
     }
-
+ 
     private void ShowTerms()
     {
         // TODO: Show terms and conditions modal or navigate to terms page

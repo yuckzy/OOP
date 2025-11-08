@@ -254,6 +254,23 @@
             <h2 class="form-title">Login</h2>
             <div class="form-subtitle">Access your account</div>
         </div>
+        
+    <style>
+    .form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    }
+
+    .form-title {
+    margin-bottom: 0.5rem;
+    color: #333;
+    }
+
+    .form-subtitle {
+    color: #666;
+    font-size: 0.9rem;
+    }
+    </style>
 
         <div class="form-group">
             <label class="form-label">Log in as</label>
@@ -276,9 +293,7 @@
         <div class="forgot-password">
             <a href="#" @onclick="HandleForgotPassword">Forgot password?</a>
         </div>
-
         <button class="login-btn" @onclick="HandleLogin">Login</button>
-
         <div class="switch-link">
             Don't have an account? <a href="/signup">Create account</a>
         </div>
@@ -295,6 +310,14 @@
         // TODO: Implement login logic
         Console.WriteLine($"Login attempt: {SelectedRole}, {Username}");
         // Navigation.NavigateTo("/dashboard");
+        if (SelectedRole == "Admin")
+        {
+            Navigation.NavigateTo("/admin/home");
+        }
+        else
+        {
+            Navigation.NavigateTo("/customer/home");
+        }
     }
 
     private void HandleForgotPassword()
